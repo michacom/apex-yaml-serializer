@@ -4,26 +4,26 @@
 
 public with sharing class StringBuilder {
 
-    private String finalValue;
+    private List<String> buffer = new List<String>();
 
     public StringBuilder(){
-        this.finalValue = '';
     }
 
     public StringBuilder append(String str){
-//        finalValue = String.format('{0}{1}', new List<String>{finalValue, str});
-        finalValue += str;
+        buffer.add(str);
         return this;
     }
 
     public StringBuilder append(Object obj){
-        finalValue += String.valueOf(obj);
+        buffer.add(String.valueOf(obj));
         return this;
     }
 
     public String build(){
-        System.debug(finalValue);
-        return finalValue;
+        return String.join(buffer, '');
     }
 
+    public override String toString() {
+        return build();
+    }
 }
